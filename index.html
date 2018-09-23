@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    div {
+      width: 1400px;
+      height: 80px;
+      margin: 0 auto;
+    }
+    .nav li {
+      float: left;
+      width: 200px;
+      background-color: #000000;
+      height: 80px;
+      line-height: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav a{
+      width: 100%;
+      height: 100%;
+      margin: auto 0;
+      font-size: 32px;
+      text-align: center;
+      text-decoration: none;
+      position: absolute;
+      color: blue;
+      z-index: 2;
+    }
+    .nav span {
+      position: absolute;
+      width: 200px;
+      background-color: yellow;
+      height: 80px;
+      top: 80px;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <ul class="nav">
+    <li><a href="javascript">导航栏1</a><span></span></li>
+    <li><a href="javascript">导航栏2</a><span></span></li>
+    <li><a href="javascript">导航栏3</a><span></span></li>
+    <li><a href="javascript">导航栏4</a><span></span></li>
+    <li><a href="javascript">导航栏5</a><span></span></li>
+    <li><a href="javascript">导航栏6</a><span></span></li>
+    <li><a href="javascript">导航栏7</a><span></span></li>
+  </ul>
+</div>
+<div>
+  <audio src="img/1.mp3" ></audio>
+  <audio src="img/2.mp3" ></audio>
+  <audio src="img/3.mp3" ></audio>
+  <audio src="img/4.mp3" ></audio>
+  <audio src="img/5.mp3"></audio>
+  <audio src="img/6.mp3" ></audio>
+  <audio src="img/7.mp3" ></audio>
+</div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $(function() {
+
+    $(".nav li").mouseenter(function() {
+      $(this).children("span").stop().animate({top:0});
+      var idx = $(this).index();
+      $("audio").get(idx).load();
+      $("audio").get(idx).play();
+    });
+
+    $(".nav li").mouseleave(function() {
+      $(this).children("span").stop().animate({top:80});
+    });
+
+    var flag = true;
+    $(document).on("keydown",function(e) {
+      if(flag){
+        flag = false;
+        if(e.keyCode >= 49 && e.keyCode < 56){
+          $(".nav li").eq(e.keyCode - 49).mouseenter();
+        }
+      }
+    });
+
+    $(document).on("keyup",function(e) {
+      flag = true;
+      if(e.keyCode >= 49 && e.keyCode <= 56){
+        $(".nav li").eq(e.keyCode - 49).trigger("mouseleave");
+      }
+    });
+  });
+</script>
